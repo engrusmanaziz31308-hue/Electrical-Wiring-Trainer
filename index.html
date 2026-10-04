@@ -63,7 +63,7 @@ body>header{grid-area:h}#ab{grid-area:a}.wrap{grid-area:w}
 }
 @media(min-width:1000px) and (min-height:560px){
 #pt,#hp{display:inline-block}
-body{display:grid;grid-template-columns:270px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"h h" "a a" "p w";height:100vh;height:100dvh;overflow:hidden}
+body{display:grid;grid-template-columns:300px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"h h" "a a" "p w";height:100vh;height:100dvh;overflow:hidden}
 body:not(.pl):not(.pv){grid-template-areas:"h h" "a a" "w w"}body:not(.pl):not(.pv) #pw{display:none}
 body:not(.pl) #pw>#tabs,body:not(.pl) #pw>#srb,body:not(.pl) #pw>#pal{display:none}
 body>header{grid-area:h}#ab{grid-area:a}
@@ -78,6 +78,8 @@ body>header{grid-area:h}#ab{grid-area:a}
 #rd{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;margin:2px 0}
 #side>.lg,#side>.hint{display:none}
 #pw>#pp{margin:8px;max-height:none}
+#pw .pf label{flex-wrap:wrap;justify-content:flex-start}
+#pw .pf input[type=number],#pw .pf input[type=text],#pw .pf select{flex:1 1 110px!important;width:auto!important;min-width:0!important;max-width:100%}
 body.hp #side{position:fixed;inset:0;margin:auto;width:min(640px,92vw);height:fit-content;max-height:80vh;max-height:80dvh;overflow:auto;background:#e9e6da;border:2px solid var(--ink);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45);padding:14px 16px;z-index:31}
 body.hp #side>.lg{display:flex}body.hp #side>.hint{display:block}
 }
@@ -304,12 +306,12 @@ return comps.filter(c=>c.type=='motor1c'||c.type=='motor1r').map(c=>{const q=m1s
 function motorRd(){return motorRd3()+motorRd1()}
 function motorRd3(){return comps.filter(c=>c.type=='motor3').map(c=>{const m=mmode(c).m,R=3*MV(c)**2/MP(c),w=[0,1,2].map(j=>S.cm(rn(c,j))),P=w.reduce((a,x)=>a+x*x*R,0);
 return `<span><b>${(c.name||tx('mt')).replace(/[&<]/g,'')}:</b> ${(m=='off'?tx('mst'):m=='star'?'Y '+tx('ms'):m=='delta'?'Δ '+tx('md'):tx('mo'))+(m=='off'||m=='odd'?'':' — '+tx(mdir(c)>0?'fw':'rvs'))} · ${(w[0]+w[1]+w[2])/3<50?((w[0]+w[1]+w[2])/3).toFixed(2):'>50'} A ${tx('mw')} · ${P.toFixed(0)} W</span>`}).join('')}
-function lab(c,d,src,z){const tr=c.trip?' — TRIP':'',sp=(d.m||src||isNd(c.type))?'':nm(c),L=[],nmx=(c.name||'').replace(/[&<]/g,'');
+function lab(c,d,src,z){const tr=c.trip?' — TRIP':'',sp=(d.m||src||isNd(c.type)||c.hd)?'':nm(c),L=[],nmx=(c.name||'').replace(/[&<]/g,'');
 if(nmx){L.push([nmx+tr,13,700]);if(sp)L.push([sp,11,500])}else if(sp||tr)L.push([sp+tr,12,600]);if(!L.length)return{h:'',side:-1};
 const cx=c.x+z.w/2,cy=c.y+z.h/2,W=Math.max(...L.map(l=>l[0].length*l[1]*.6))+6,H=L.length*15+2,occ=new Set(Object.keys(d.t).map(n=>tp(c,n)[2])),fr=[1,0,3,2].filter(s=>!occ.has(s)),
 R=s=>s==1?{x:cx-W/2,y:c.y+z.h+1,a:'middle',ax:cx,s}:s==3?{x:cx-W/2,y:c.y-4-H,a:'middle',ax:cx,s}:s==0?{x:c.x+z.w+5,y:cy-H/2,a:'start',ax:c.x+z.w+5,s}:{x:c.x-5-W,y:cy-H/2,a:'end',ax:c.x-5,s},
 cs=(fr.length?fr:[1,0,3,2]).map(R),ok=r=>!comps.some(o=>{if(o===c)return 0;const q=dm(o);return r.x<o.x+q.w+4&&r.x+W>o.x-4&&r.y<o.y+q.h+4&&r.y+H>o.y-4}),r=cs.find(ok)||cs[0];
-return{side:r.s,h:L.map((l,j)=>`<text x="${r.ax}" y="${r.y+12+j*15}" text-anchor="${r.a}" style="font-size:${l[1]}px;font-weight:${l[2]};paint-order:stroke;stroke:#eef0e6;stroke-width:4px;stroke-linejoin:round">${l[0]}</text>`).join('')}}
+return{side:r.s,h:L.map((l,j)=>`<text class="cl" data-s="${r.s}" x="${r.ax}" y="${r.y+12+j*15}" text-anchor="${r.a}" style="font-size:${l[1]}px;font-weight:${l[2]};paint-order:stroke;stroke:#eef0e6;stroke-width:4px;stroke-linejoin:round">${l[0]}</text>`).join('')}}
 function badge(c,d,z,cx,cy,ls){const m=mmode(c).m;if(m=='off')return '';const occ=new Set(Object.keys(d.t).map(n=>tp(c,n)[2])),fr=[3,1,0,2].filter(s=>!occ.has(s)&&s!=ls),s=fr.length?fr[0]:3,W=168,H=34,
 x=s==0?c.x+z.w+10:s==2?c.x-10-W:cx-W/2,y=s==3?c.y-H-10:s==1?c.y+z.h+10:cy-H/2,col=m=='star'?'#e8860c':m=='delta'?'#2f9e55':'#c0392b',ic=m=='star'?'M-7-8L0 0L7-8M0 0V9':m=='delta'?'M0-9L9 8H-9Z':'M0-9V3M0 8V9';
 return `<g><rect x="${x}" y="${y}" width="${W}" height="${H}" rx="16" fill="${col}" stroke="#1f272c" stroke-width="2"/><path d="${ic}" transform="translate(${x+22} ${y+H/2})" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><text x="${x+W/2+10}" y="${y+H/2+5}" text-anchor="middle" style="fill:#fff;font:700 15px system-ui,sans-serif">${tx(m=='star'?'ms':m=='delta'?'md':'mo')}${m=='odd'?'':(mdir(c)>0?' ↻ ':' ↺ ')+tx(mdir(c)>0?'fw':'rvs')}</text></g>`}
@@ -640,5 +642,26 @@ function snap(){try{var w=sv.clientWidth,l=sv.getBoundingClientRect().left;
 if(lw&&w&&mq.matches&&w!=lw){Z=Math.max(.15,Math.min(4,Z*lw/w));VX+=(l-ll)*(BW/Z/w);view()}
 lw=w;ll=l}catch(_){}}
 snap();if(window.ResizeObserver)new ResizeObserver(snap).observe(g('cvw'));
+})();
+</script><script>
+(function(){
+function tight(){try{var m=sc.getScreenCTM();if(!m)return;var inv=m.inverse(),p=svg.createSVGPoint();
+function P(x,y){p.x=x;p.y=y;return p.matrixTransform(inv)}
+sc.querySelectorAll('g[data-c]').forEach(function(g){var L=g.querySelectorAll('text.cl');if(!L.length)return;
+var x0=1e9,x1=-1e9;
+g.firstElementChild.querySelectorAll('path,rect,circle,ellipse,line,polygon,polyline,text').forEach(function(e){if(e.getAttribute('fill')=='transparent')return;var r=e.getBoundingClientRect();if(!r.width&&!r.height)return;var a=P(r.left,r.top),b=P(r.right,r.bottom);x0=Math.min(x0,a.x);x1=Math.max(x1,b.x)});
+if(x0>x1)return;
+L.forEach(function(t){t.removeAttribute('transform');var s=+t.dataset.s,ax=+t.getAttribute('x'),d;
+if(s==0){d=x1+5-ax;if(d<0)t.setAttribute('transform','translate('+d+' 0)')}
+else if(s==2){d=x0-5-ax;if(d>0)t.setAttribute('transform','translate('+d+' 0)')}})})}catch(_){}}
+new MutationObserver(tight).observe(sc,{childList:true});tight();
+var pp=document.getElementById('pp');
+function inj(){var pf=pp.querySelector('.pf');if(!pf||pp.hidden||pf.querySelector('[data-hd]'))return;
+var c=sel&&find(sel.id);if(!c||c.type=='txt'||DEF[c.type].m||isNd(c.type)||/^(supply|bat|supply3)$/.test(c.type))return;
+var l=document.createElement('label');
+l.innerHTML='<span>'+(LG=='en'?'Show description beside part':'پرزے کے ساتھ تفصیل دکھائیں')+'</span><input type="checkbox" data-hd style="width:24px;height:24px;flex:none">';
+l.querySelector('input').checked=!c.hd;pf.insertBefore(l,pf.children[1]||null)}
+new MutationObserver(inj).observe(pp,{childList:true,subtree:true});inj();
+pp.addEventListener('change',function(e){if(!e.target.matches||!e.target.matches('[data-hd]'))return;var c=sel&&find(sel.id);if(!c)return;var pre=cur0();if(e.target.checked)delete c.hd;else c.hd=1;commit(pre);render()});
 })();
 </script></body></html>
