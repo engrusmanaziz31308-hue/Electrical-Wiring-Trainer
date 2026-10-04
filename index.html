@@ -31,18 +31,68 @@ button,select{touch-action:manipulation}.pp,.row,.hint{overflow-wrap:anywhere}
 .bx .hint{margin:6px 0}
 #tabs,#pal{gap:5px;padding-top:3px;padding-bottom:3px}#tabs button,#pal button{min-height:30px;padding:2px 9px;font-size:12.5px;border-radius:7px}#pal>b{font-size:12.5px}
 .cd{margin-top:12px;padding:10px 14px;background:#f7f5ea;border:1.5px dashed #8a9088;border-radius:8px}.cd b{display:block;margin-bottom:4px}.cd p{margin:4px 0;font-size:13.5px;line-height:1.9;font-weight:400}.cd p.k{font-weight:700}
+
+#zz{font-size:20px}body.focus>header,body.focus #srb{display:none}
+.kb{display:none}body.en .ku{display:none}body:not(.en) .ke{display:none}#cvw.pn svg{cursor:grab}
+#pt,#hp{display:none}#pt{background:var(--amb);font-weight:800}
+@media not all and (min-width:1000px) and (min-height:560px){
+#pt,#hp{display:inline-block}
+.zb{flex-direction:row;direction:ltr}
+body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+body>header{flex:none;padding:calc(4px + env(safe-area-inset-top)) 10px 4px}body.focus>header{display:flex}
+h1{font-size:15px}header button{min-height:34px;padding:4px 10px;font-size:13px}
+#ab{flex:none;padding:4px 8px}#ab button{min-height:36px;padding:4px 10px;font-size:13px}
+.wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 8px 0}
+#cvw{flex:1;min-height:0}#cv{height:100%;min-height:0}
+#side{flex:none}
+#st{margin:4px 0;padding:5px 10px;font-size:13px;max-height:5.5em;overflow:auto}#st:empty{display:none}
+#rd{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;margin:2px 0;font-size:13px}
+#side>.lg,#side>.hint{display:none}
+#pp{margin:4px 0;max-height:34vh;max-height:34dvh;overflow:auto}
+#pw{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:55vh;max-height:55dvh;overflow:auto;background:#e9e6da;border-top:2px solid var(--ink);border-radius:14px 14px 0 0;padding-bottom:env(safe-area-inset-bottom);transform:translateY(105%);visibility:hidden;transition:transform .2s,visibility 0s .2s}
+body.pl #pw{transform:none;visibility:visible;transition:transform .2s}
+#pw #pal{flex-wrap:wrap;overflow:visible}#pal button{flex:1 1 auto}
+body.hp #side{position:fixed;left:0;right:0;bottom:0;z-index:31;max-height:60vh;max-height:60dvh;overflow:auto;background:#e9e6da;border-top:2px solid var(--ink);border-radius:14px 14px 0 0;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+body.hp #side>.lg{display:flex}body.hp #side>.hint:not(.kb){display:block}
+}
+@media (orientation:landscape) and (max-height:559px) and (min-width:600px){
+body{display:grid;grid-template-columns:210px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"h h" "a a" "p w"}
+body>header{grid-area:h}#ab{grid-area:a}.wrap{grid-area:w}
+#pw{grid-area:p;position:static;transform:none;visibility:visible;max-height:none;min-height:0;border:0;border-inline-end:1px solid #b9bdb0;border-radius:0;padding-bottom:0}
+#pt{display:none}
+}
+@media(min-width:1000px) and (min-height:560px){
+#pt,#hp{display:inline-block}
+body{display:grid;grid-template-columns:270px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"h h" "a a" "p w";height:100vh;height:100dvh;overflow:hidden}
+body:not(.pl):not(.pv){grid-template-areas:"h h" "a a" "w w"}body:not(.pl):not(.pv) #pw{display:none}
+body:not(.pl) #pw>#tabs,body:not(.pl) #pw>#srb,body:not(.pl) #pw>#pal{display:none}
+body>header{grid-area:h}#ab{grid-area:a}
+#pw{grid-area:p;min-height:0;overflow:auto;background:#e9e6da;border-inline-end:1px solid #b9bdb0}
+#pw .bar{border-bottom:0}
+#pw #tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}#pw #tabs button{width:100%;padding:2px 4px}
+#pw #pal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}#pal>b{grid-column:1/-1}#pal button{width:100%;white-space:normal;line-height:1.2;padding:4px 6px}
+.wrap{grid-area:w;min-height:0;width:100%;max-width:none;margin:0;display:flex;flex-direction:column;padding:8px 12px 0}
+#cvw{flex:1;min-height:0}#cv{height:100%;min-height:0}
+#side{flex:none}
+#st{margin:6px 0;padding:6px 12px;font-size:14px;max-height:5.5em;overflow:auto}#st:empty{display:none}
+#rd{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;margin:2px 0}
+#side>.lg,#side>.hint{display:none}
+#pw>#pp{margin:8px;max-height:none}
+body.hp #side{position:fixed;inset:0;margin:auto;width:min(640px,92vw);height:fit-content;max-height:80vh;max-height:80dvh;overflow:auto;background:#e9e6da;border:2px solid var(--ink);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45);padding:14px 16px;z-index:31}
+body.hp #side>.lg{display:flex}body.hp #side>.hint{display:block}
+}
 </style></head><body>
-<header style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h1 data-k="title">سرکٹ ٹرینر</h1><div style="display:flex;gap:8px;align-items:center"><button id="inst" data-k="inst" hidden>ایپ انسٹال کریں</button><button id="lg" data-k="btn">English</button></div></header>
-<div class="bar" id="tabs"></div><div class="bar" id="srb"><input id="psr" type="search" autocomplete="off" style="flex:1;min-width:150px"></div><div class="bar" id="pal"></div>
-<div class="bar"><button class="act" id="del" data-k="del">حذف کریں</button><button class="act" id="flip" data-k="flip">پلٹائیں</button><button class="act" id="rot" data-k="rot">گھمائیں</button><button class="act" id="ga" data-k="gd">الائنمنٹ گائیڈ</button><button class="act" id="clr" data-k="clr">سب صاف</button><button class="act" id="pdf" data-k="pdf">پی ڈی ایف ڈاؤن لوڈ</button><span class="sep"></span><button class="act" id="png" data-k="png">تصویر</button><button class="act" id="lnk" data-k="lnk">لنک شیئر</button><button class="act" id="bu" data-k="undo">واپس</button><button class="act" id="br" data-k="redo">دوبارہ</button><button class="act" id="bd" data-k="dup">نقل</button><button class="act" id="msb" data-k="msb">منتخب باکس</button><button class="act" id="fb" data-k="fb">فالٹ ٹیسٹ</button><span class="sep"></span><button class="act" id="bm" data-k="svm" style="background:var(--panel);color:#fff;font-weight:800">میرے سرکٹ</button><button class="act" id="bs" data-k="sf">فائل میں محفوظ</button><button class="act" id="bo" data-k="of">فائل سے کھولیں</button><input type="file" id="fi" accept=".json,application/json" hidden><span class="sep"></span>
+<header style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h1 data-k="title">سرکٹ ٹرینر</h1><div style="display:flex;gap:8px;align-items:center"><button id="pt" data-k="pt">پرزے</button><button id="hp" data-k="hp">مدد</button><button id="inst" data-k="inst" hidden>ایپ انسٹال کریں</button><button id="lg" data-k="btn">English</button></div></header>
+<div id="pw"><div class="bar" id="tabs"></div><div class="bar" id="srb"><input id="psr" type="search" autocomplete="off" style="flex:1;min-width:150px"></div><div class="bar" id="pal"></div></div>
+<div class="bar" id="ab"><button class="act" id="del" data-k="del">حذف کریں</button><button class="act" id="flip" data-k="flip">پلٹائیں</button><button class="act" id="rot" data-k="rot">گھمائیں</button><button class="act" id="ga" data-k="gd">الائنمنٹ گائیڈ</button><button class="act" id="clr" data-k="clr">سب صاف</button><button class="act" id="pdf" data-k="pdf">پی ڈی ایف ڈاؤن لوڈ</button><span class="sep"></span><button class="act" id="png" data-k="png">تصویر</button><button class="act" id="lnk" data-k="lnk">لنک شیئر</button><button class="act" id="bu" data-k="undo">واپس</button><button class="act" id="br" data-k="redo">دوبارہ</button><button class="act" id="bd" data-k="dup">نقل</button><button class="act" id="msb" data-k="msb">منتخب باکس</button><button class="act" id="fb" data-k="fb">فالٹ ٹیسٹ</button><span class="sep"></span><button class="act" id="bm" data-k="svm" style="background:var(--panel);color:#fff;font-weight:800">میرے سرکٹ</button><button class="act" id="bs" data-k="sf">فائل میں محفوظ</button><button class="act" id="bo" data-k="of">فائل سے کھولیں</button><input type="file" id="fi" accept=".json,application/json" hidden><span class="sep"></span>
 <select id="pre" aria-label="مثال سرکٹ"><option value="" data-k="p0">مثال سرکٹ…</option><option value="1" data-k="p1">بلب — ون وے سوئچ</option><option value="2" data-k="p2">سیڑھی کا بلب — دو ٹو وے سوئچ</option><option value="3" data-k="p3">بلب اور انڈیکیٹر متوازی</option><option value="4" data-k="p4">ڈی سی — ایمپیئر اور وولٹ میٹر</option><option value="5" data-k="p5">تین جگہ سے کنٹرول</option><option value="7" data-k="p7">ساکٹ، ڈمر اور سیلنگ فین</option><option value="6" data-k="p6">RCCB اور انسولیشن فالٹ</option><option value="8" data-k="p8">انرجی میٹر — سنگل فیز (kWh)</option><option value="9" data-k="p9">انرجی میٹر — تھری فیز، غیر متوازن لوڈ</option><option value="16" data-k="p16">ٹرانسفارمر + ریکٹیفائر (12V DC بلب)</option><option value="17" data-k="p17">مشین کی ارتھنگ + RCCB تھری پول</option><option value="15" data-k="p15">تھری فیز موٹر — فیز فیلئر ریلے کے ساتھ</option><option value="10" data-k="p10">تھری فیز موٹر — DOL سٹارٹر (اسٹارٹ/اسٹاپ)</option><option value="11" data-k="p11">تھری فیز موٹر — سٹار ڈیلٹا سٹارٹر (ٹائمر)</option><option value="13" data-k="p13">سنگل فیز موٹر — کپیسٹر سٹارٹ (ایمرجنسی اسٹاپ)</option><option value="14" data-k="p14">سنگل فیز موٹر — کپیسٹر رن (سلیکٹر سوئچ)</option><option value="12" data-k="p12">تھری فیز موٹر — فارورڈ / ریورس</option><option value="18" data-k="p18">ٹیوب لائٹ — سوئچ سے</option><option value="19" data-k="p19">پانی کی ٹینکی — فلوٹ سوئچ سے موٹر</option><option value="20" data-k="p20">چینج اوور سوئچ — مین / جنریٹر</option><option value="21" data-k="p21">تھری فیز ٹرانسفارمر — ڈیلٹا / سٹار (3 بلب)</option><option value="22" data-k="p22">ملٹی میٹر — بلب کی ریزسٹنس (Ω)</option><option value="23" data-k="p23">ملٹی میٹر — وولٹیج اور کرنٹ</option></select></div>
 <div class="ov" id="sv" hidden><div class="bx" role="dialog" aria-modal="true"><h2 data-k="svt">میرے محفوظ سرکٹ</h2><div class="svf"><input type="text" id="svi" maxlength="40" autocomplete="off"><button id="svb" data-k="svb">محفوظ کریں</button></div><div id="svs" role="status"></div><div id="svl"></div><p class="hint" data-k="svh"></p><button id="svc" data-k="svc" style="width:100%">بند کریں</button></div></div>
 <div class="wrap">
 <div id="cvw"><svg id="cv" viewBox="0 0 700 460"><defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#b3b8a8"/></pattern><radialGradient id="gl"><stop offset="0" stop-color="#fff3a8"/><stop offset="1" stop-color="#ffd24a" stop-opacity="0"/></radialGradient></defs><rect x="-4000" y="-4000" width="8000" height="8000" fill="url(#g)"/><g id="sc"></g></svg>
-<div class="zb"><button id="zi" aria-label="زوم ان">+</button><button id="zo" aria-label="زوم آؤٹ">−</button><button id="zf" aria-label="پورا سرکٹ دکھائیں">⤢</button></div></div>
-<div id="pp" class="pp" hidden></div><div id="st" role="status"></div><div class="row" id="rd"></div>
+<div class="zb"><button id="zi" aria-label="زوم ان">+</button><button id="zo" aria-label="زوم آؤٹ">−</button><button id="zf" aria-label="پورا سرکٹ دکھائیں">⤢</button><button id="zz" aria-label="فل سکرین">⛶</button></div></div>
+<aside id="side"><div id="pp" class="pp" hidden></div><div id="st" role="status"></div><div class="row" id="rd"></div>
 <div class="row lg"><b data-k="lgd">تار کے رنگ:</b><span><i style="background:#d13a2a"></i><em data-k="lv">مثبت/لائیو</em></span><span><i style="background:#d9a400"></i><em data-k="l2">فیز L2</em></span><span><i style="background:#2b2b2b"></i><em data-k="l3">فیز L3</em></span><span><i style="background:#2a63b8"></i><em data-k="ln">منفی/نیوٹرل</em></span><span><i style="background:#e8860c"></i><em data-k="ll">لوڈ کے بعد</em></span><span><i style="background:#3a9a4a"></i><em data-k="le">ارتھ</em></span><span><i style="background:#8a9088"></i><em data-k="lo">غیر متصل</em></span></div>
-<p class="hint" data-k="hint">تار لگانے کے دو طریقے: (۱) ایک ٹرمنل پر ٹیپ کریں، پھر دوسرے ٹرمنل پر ٹیپ کریں۔ (۲) ٹرمنل سے کھینچیں — قریب آنے پر خود جڑ جائے گا۔ سوئچ/بریکر پر ٹیپ کر کے آن آف کریں۔ خالی جگہ کھینچ کر ورکنگ سپیس سرکائیں؛ دو انگلیوں یا + − سے زوم کریں۔ تار کو پکڑ کر کھینچیں تو اس کا موڑ سرک جاتا ہے۔ چیز کھینچتے وقت سبز لائن آئے تو ٹرمینل بالکل سیدھ میں ہیں۔ تار یا چیز چن کر «حذف کریں» دبائیں۔ چیز چننے پر نیچے خصوصیات (ویلیو، نام، رنگ) بدل سکتے ہیں۔</p></div>
+<p class="hint" data-k="hint">تار لگانے کے دو طریقے: (۱) ایک ٹرمنل پر ٹیپ کریں، پھر دوسرے ٹرمنل پر ٹیپ کریں۔ (۲) ٹرمنل سے کھینچیں — قریب آنے پر خود جڑ جائے گا۔ سوئچ/بریکر پر ٹیپ کر کے آن آف کریں۔ خالی جگہ کھینچ کر ورکنگ سپیس سرکائیں؛ دو انگلیوں یا + − سے زوم کریں۔ تار کو پکڑ کر کھینچیں تو اس کا موڑ سرک جاتا ہے۔ چیز کھینچتے وقت سبز لائن آئے تو ٹرمینل بالکل سیدھ میں ہیں۔ تار یا چیز چن کر «حذف کریں» دبائیں۔ چیز چننے پر نیچے خصوصیات (ویلیو، نام، رنگ) بدل سکتے ہیں۔</p><p class="hint kb"><span class="ku">کی بورڈ: Space + کھینچیں یا درمیانا ماؤس بٹن = ورکنگ سپیس سرکائیں · Ctrl+Z / Ctrl+Y واپس/دوبارہ · Ctrl+C / Ctrl+V کاپی/پیسٹ · Ctrl+D نقل · Ctrl+S فائل میں محفوظ · F پلٹائیں · R گھمائیں · Delete حذف · 0 پورا سرکٹ · + − زوم</span><span class="ke">Keyboard: Space + drag or middle mouse button = pan · Ctrl+Z / Ctrl+Y undo/redo · Ctrl+C / Ctrl+V copy/paste · Ctrl+D duplicate · Ctrl+S save to file · F flip · R rotate · Delete remove · 0 fit all · + − zoom</span></p></aside></div>
 <script>
 const $=s=>document.querySelector(s),svg=$('#cv'),sc=$('#sc');
 const T2={a:[0,30,-1],b:[80,30,1]},M=(n,m,k,u)=>({w:80,h:60,t:T2,n,m,k,u}),B=(n,Vr,P)=>({w:80,h:60,t:T2,n,Vr,P});
@@ -76,7 +126,7 @@ const T=id=>{const [c,n]=id.split('.');return tp(find(c),n)};
 function co(){return matchMedia('(pointer:coarse)').matches}
 function hits(){const k=(svg.clientWidth||BW)*Z/BW,c=co(),hw=Math.round(Math.min(64,Math.max(18,(c?36:20)/k))),r=c?28:24;if(hw!=HWL){HWL=hw;svg.style.setProperty('--hw',hw)}if(r!=TR){TR=r;sc.querySelectorAll('.th').forEach(n=>n.setAttribute('r',r))}}
 function view(){const w=BW/Z;hits();svg.setAttribute('viewBox',`${VX} ${VY} ${w} ${w*svg.clientHeight/svg.clientWidth}`)}
-function zoomAt(f,cx,cy){const nz=Math.max(.3,Math.min(4,Z*f)),k=Z/nz;VX=cx-(cx-VX)*k;VY=cy-(cy-VY)*k;Z=nz;view()}
+function zoomAt(f,cx,cy){const nz=Math.max(.15,Math.min(4,Z*f)),k=Z/nz;VX=cx-(cx-VX)*k;VY=cy-(cy-VY)*k;Z=nz;view()}
 const ctr=()=>{const w=BW/Z;return[VX+w/2,VY+w*svg.clientHeight/svg.clientWidth/2]};
 function fit(){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;comps.forEach(c=>{const d=DEF[c.type];x0=Math.min(x0,c.x);y0=Math.min(y0,c.y);x1=Math.max(x1,c.x+dm(c).w);y1=Math.max(y1,c.y+dm(c).h+20)});if(x0>1e8){x0=y0=0;x1=BW;y1=300}
 const a=svg.clientHeight/svg.clientWidth,w=x1-x0+70,h=y1-y0+70;Z=Math.max(.3,Math.min(2.5,BW/Math.max(w,h/a)));const vw=BW/Z;VX=(x0+x1)/2-vw/2;VY=(y0+y1)/2-vw*a/2;view()}
@@ -534,4 +584,61 @@ $('#inst').onclick=async()=>{if(!DP)return;DP.prompt();try{await DP.userChoice}c
 addEventListener('appinstalled',()=>{DP=null;$('#inst').hidden=true});
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(r=>{r.update().catch(()=>{});document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update().catch(()=>{})})}).catch(()=>{}));
 (async()=>{const m=location.hash.match(/^#c=(.+)$/);if(!m)return;try{const o=await unpackC(m[1]);if(okC(o)){rest(JSON.stringify(o));fit()}}catch(_){}})();
+</script><script>
+(function(){var b=document.body,z=document.getElementById('zz'),d=document.documentElement,r;
+function rs(){cancelAnimationFrame(r);r=requestAnimationFrame(function(){dispatchEvent(new Event('resize'))})}
+z.onclick=function(){var on=b.classList.toggle('focus');
+if(on&&d.requestFullscreen)d.requestFullscreen().catch(function(){});
+if(!on&&document.fullscreenElement)document.exitFullscreen();rs()};
+document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement)b.classList.remove('focus');rs()});
+if(window.ResizeObserver)new ResizeObserver(rs).observe(document.getElementById('cvw'));
+})();
+</script><script>
+(function(){var cw=document.getElementById('cvw'),sp=0;
+function ty(e){return /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)}
+function ck(id){document.getElementById(id).click()}
+function off(){sp=0;cw.classList.remove('pn')}
+[['bu','Ctrl+Z'],['br','Ctrl+Y'],['bd','Ctrl+D'],['bs','Ctrl+S'],['flip','F'],['rot','R'],['del','Delete'],['zf','0'],['zi','+'],['zo','-'],['zz','F11']].forEach(function(p){var el=document.getElementById(p[0]);if(el)el.title=p[1]});
+addEventListener('keydown',function(e){
+if(!document.getElementById('sv').hidden||ty(e))return;
+var k=e.key,m=e.ctrlKey||e.metaKey,l=k.toLowerCase();
+if(k==' '){if(e.target.tagName=='BUTTON'&&e.target.matches(':focus-visible'))return;e.preventDefault();sp=1;cw.classList.add('pn');return}
+if(m&&l=='d'){e.preventDefault();ck('bd')}
+else if(m&&l=='s'){e.preventDefault();ck('bs')}
+else if(!m&&!e.altKey){if(l=='f')ck('flip');else if(k=='0')ck('zf');else if(k=='+'||k=='=')ck('zi');else if(k=='-')ck('zo')}
+});
+addEventListener('keyup',function(e){if(e.key==' '&&sp){e.preventDefault();off()}});
+addEventListener('blur',off);
+cw.addEventListener('pointerdown',function(e){
+if(!e.target.closest('svg')||!(e.button==1||(sp&&e.button==0)))return;
+e.preventDefault();e.stopPropagation();
+ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+pan={cx:e.clientX,cy:e.clientY,vx:VX,vy:VY};
+try{svg.setPointerCapture(e.pointerId)}catch(_){}
+},true);
+cw.addEventListener('mousedown',function(e){if(e.button==1)e.preventDefault()});
+})();
+</script><script>
+(function(){var b=document.body,g=function(i){return document.getElementById(i)};
+I18.ur.pt='پرزے';I18.en.pt='Parts';I18.ur.hp='مدد';I18.en.hp='Help';
+g('pt').textContent=tx('pt');g('hp').textContent=tx('hp');
+var dk=function(){return matchMedia('(min-width:1000px) and (min-height:560px)').matches};
+function tg(c,o){if(b.classList.toggle(c))b.classList.remove(o)}
+g('pt').onclick=function(){tg('pl','hp')};g('hp').onclick=function(){tg('hp','pl')};
+g('pal').addEventListener('click',function(e){if(!dk()&&e.target.closest('button'))b.classList.remove('pl')});
+g('cvw').addEventListener('pointerdown',function(){b.classList.remove('hp');if(!dk())b.classList.remove('pl')},true);
+addEventListener('load',function(){setTimeout(function(){try{if(comps&&comps.length)fit()}catch(_){}},120)});
+})();
+</script><script>
+(function(){var b=document.body,g=function(i){return document.getElementById(i)},pp=g('pp'),pw=g('pw'),sd=g('side'),sv=g('cv'),lw=0,ll=0;
+var mq=matchMedia('(min-width:1000px) and (min-height:560px)');
+function place(){if(mq.matches)pw.insertBefore(pp,pw.firstChild);else sd.insertBefore(pp,sd.firstChild)}
+place();mq.addEventListener('change',place);
+function sy(){b.classList.toggle('pv',!pp.hidden)}sy();
+new MutationObserver(sy).observe(pp,{attributes:true,attributeFilter:['hidden']});
+function snap(){try{var w=sv.clientWidth,l=sv.getBoundingClientRect().left;
+if(lw&&w&&mq.matches&&w!=lw){Z=Math.max(.15,Math.min(4,Z*lw/w));VX+=(l-ll)*(BW/Z/w);view()}
+lw=w;ll=l}catch(_){}}
+snap();if(window.ResizeObserver)new ResizeObserver(snap).observe(g('cvw'));
+})();
 </script></body></html>
