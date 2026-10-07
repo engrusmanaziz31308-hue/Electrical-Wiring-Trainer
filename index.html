@@ -51,7 +51,7 @@ h1{font-size:15px}header button{min-height:34px;padding:4px 10px;font-size:13px}
 #pp{margin:4px 0}
 #pw{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:55vh;max-height:55dvh;overflow:auto;background:#e9e6da;border-top:2px solid var(--ink);border-radius:14px 14px 0 0;padding-bottom:env(safe-area-inset-bottom);transform:translateY(105%);visibility:hidden;transition:transform .2s,visibility 0s .2s}
 body.pl #pw{transform:none;visibility:visible;transition:transform .2s}
-#pw #pal{flex-wrap:wrap;overflow:visible}#pal button{flex:1 1 auto}
+#pw #pal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;align-items:stretch}#pal>b,#pal>.hint{grid-column:1/-1}#pal button{flex:none;width:100%;min-width:0;white-space:normal;line-height:1.2;padding:4px 6px}
 body.hp #side{position:fixed;left:0;right:0;bottom:0;z-index:31;max-height:60vh;max-height:60dvh;overflow:auto;background:#e9e6da;border-top:2px solid var(--ink);border-radius:14px 14px 0 0;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
 body.hp #side>.lg{display:flex}body.hp #side>.hint:not(.kb){display:block}
 }
@@ -247,7 +247,7 @@ body:not([data-tab=circuit]) :is(#pt,#hp){display:none!important}body:not([data-
 #emb .cvx{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 6px;font-size:20px;font-weight:700;align-items:baseline}
 #emb .cvx span{text-align:right;color:#5b0fd6;overflow-wrap:anywhere}#emb .cvx em{font-style:normal;color:#555}
 #emb .cvx:nth-child(even){background:#d9dbe6}#emb .cvi b{font-size:15px;overflow:hidden;letter-spacing:-.2px}#emb .cvx{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);font-size:18px}#emb .cvx span{white-space:nowrap;overflow-wrap:normal;overflow-x:auto}#emb .cvx sup,#emb .cvf output sup{font-size:.62em;line-height:0}#emb .cvf output{font-size:clamp(17px,5.6vw,24px);white-space:nowrap;overflow-wrap:normal;overflow-x:auto}
-</style></head><body>
+</style><style>#pal button{display:flex;align-items:center;justify-content:center;gap:4px;box-sizing:border-box;margin:0;text-align:center;overflow-wrap:anywhere}#pal button{position:relative}#pal button .lk{position:absolute;inset-inline-end:4px;top:50%;transform:translateY(-50%);margin:0;padding:4px;font-size:15px;line-height:1;min-width:26px;text-align:center}#pal>b .lk{position:static;transform:none}#pal>b{display:flex;align-items:center;gap:4px;margin:0}</style></head><body>
 <header><div class="hr"><h1 data-k="title">سرکٹ ٹرینر</h1><div style="display:flex;gap:8px;align-items:center"><button id="cb" style="background:#e8860c;color:#1f272c;font-weight:800">حساب کتاب</button><button id="pt" data-k="pt">پرزے</button><button id="hp" data-k="hp">مدد</button><button id="inst" data-k="inst" hidden>ایپ انسٹال کریں</button><button id="hb" hidden aria-label="home">🏠</button><button id="qb" hidden aria-label="back">←</button><button id="lg" data-k="btn">English</button></div></div><nav id="mt" aria-label="main"></nav></header>
 <div id="pw"><div class="bar" id="tabs"></div><div class="bar" id="srb"><input id="psr" type="search" autocomplete="off" style="flex:1;min-width:150px"></div><div class="bar" id="pal"></div></div>
 <div class="bar" id="ab"><button class="act" id="del" data-k="del">حذف کریں</button><button class="act" id="flip" data-k="flip">پلٹائیں</button><button class="act" id="rot" data-k="rot">گھمائیں</button><button class="act" id="ga" data-k="gd">الائنمنٹ گائیڈ</button><button class="act" id="clr" data-k="clr">سب صاف</button><button class="act" id="pdf" data-k="pdf">پی ڈی ایف ڈاؤن لوڈ</button><span class="sep"></span><button class="act" id="png" data-k="png">تصویر</button><button class="act" id="lnk" data-k="lnk">لنک شیئر</button><button class="act" id="bu" data-k="undo">واپس</button><button class="act" id="br" data-k="redo">دوبارہ</button><button class="act" id="bd" data-k="dup">نقل</button><button class="act" id="msb" data-k="msb">منتخب باکس</button><button class="act" id="fb" data-k="fb">فالٹ ٹیسٹ</button><span class="sep"></span><button class="act" id="bm" data-k="svm" style="background:var(--panel);color:#fff;font-weight:800">میرے سرکٹ</button><button class="act" id="bs" data-k="sf">فائل میں محفوظ</button><button class="act" id="bo" data-k="of">فائل سے کھولیں</button><input type="file" id="fi" accept=".json,application/json" hidden><span class="sep"></span>
@@ -781,10 +781,116 @@ TABS=[['s','سوئچ','Switches'],['m','میٹر','Meters'],['p','پاور','Pow
 PAL.push(['wat','واٹ میٹر'],['clamp','کلیمپ میٹر'],['fhz','فریکوئنسی میٹر'],['pseq','فیز سیکوئنس میٹر']);PEN.push('Watt meter','Clamp meter','Frequency meter','Phase sequence meter');Object.assign(CAT,{wat:'m',clamp:'m',fhz:'m',pseq:'m'});ORD.push('wat','clamp','fhz','pseq');
 for(let n=1;n<=10;n++){const t={};for(let j=1;j<=n;j++){const y=18+28*(j-1);t['a'+j]=[0,y,-1];t['b'+j]=[84,y,1]}DEF['cs'+n]={w:84,h:28*n+8,t,n:'Terminal block'};LB['cs'+n]=Object.fromEntries(Object.keys(t).map(k=>[k,k.slice(1)]));CAT['cs'+n]='o';ORD.push('cs'+n)}
 PAL.push(['cs4','کنیکٹر سٹرپ']);PEN.push('Terminal block');DEF.olx={w:100,h:122,t:{l1:[0,18,-1],t1:[100,18,1],l2:[0,46,-1],t2:[100,46,1],l3:[0,74,-1],t3:[100,74,1],a:[0,104,-1],b:[100,104,1]},n:'Electronic overload relay',Vr:230,P:2};LB.olx={l1:'1',t1:'2',l2:'3',t2:'4',l3:'5',t3:'6',a:'A1',b:'A2'};CAT.olx='o';ORD.push('olx');PAL.push(['olx','الیکٹرانک اوورلوڈ ریلے'],['olnc','الیکٹرانک او ایل کنٹیکٹ NC (95-96)',{el:1}],['olno','الیکٹرانک او ایل کنٹیکٹ NO (97-98)',{el:1}]);PEN.push('Electronic overload relay','EOL contact NC (95-96)','EOL contact NO (97-98)');
+(function(){
+var K='lkv1',D={pin:'0019',lk:[],auto:'close',until:0,xl:0,sq:null,sf:0,su:0},S,mem=false,last=false,taps=[];
+function ld(){try{return Object.assign({},D,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){return Object.assign({},D)}}
+function sv(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+S=ld();
+function adm(){return mem||S.until==-1||S.until>Date.now()}
+function key(t,o){return t+(o&&o.el?'#el':'')}
+function isL(t,o){return S.lk.indexOf(key(t,o))>-1}
+function E(){return typeof LG!='undefined'&&LG=='en'}
+function T(u,e){return E()?e:u}
+function rb(){try{buildPal()}catch(e){}}
+function toast(m){var d=document.createElement('div');d.textContent=m;d.style.cssText='position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#1f272c;color:#fff;padding:10px 16px;border-radius:12px;z-index:99999;font-size:15px;max-width:80%;text-align:center';document.body.appendChild(d);setTimeout(function(){d.remove()},1800)}
+function login(){var a=S.auto;if(a=='close'){mem=true;S.until=0}else if(a=='never'){mem=false;S.until=-1}else{mem=false;S.until=Date.now()+(+a)*60000}sv()}
+function logout(){mem=false;S.until=0;sv()}
+function el(tag,txt,css){var d=document.createElement(tag);if(txt!=null)d.textContent=txt;if(css)d.style.cssText=css;return d}
+var BTN='display:block;width:100%;padding:11px;margin:8px 0 0;border:0;border-radius:10px;font-size:16px;font-family:inherit;cursor:pointer;';
+var INP='width:100%;box-sizing:border-box;padding:10px;font-size:18px;border:2px solid #b8bec3;border-radius:10px;text-align:center;letter-spacing:4px;';
+var INA=INP.replace('letter-spacing:4px;','letter-spacing:0;');
+var QS=[['آپ کے پہلے اسکول کا نام کیا ہے؟','What is the name of your first school?'],['آپ کی والدہ کا نام کیا ہے؟','What is your mother\'s name?'],['آپ کے بچپن کے سب سے اچھے دوست کا نام کیا ہے؟','What is your childhood best friend\'s name?'],['آپ کس شہر میں پیدا ہوئے؟','In which city were you born?'],['آپ کے پسندیدہ استاد کا نام کیا ہے؟','What is your favourite teacher\'s name?'],['آپ کے پہلے موبائل فون کی کمپنی کون سی تھی؟','What was the brand of your first mobile phone?'],['آپ کے پہلے پالتو جانور کا نام کیا تھا؟','What was the name of your first pet?']];
+function nz(t){return String(t).trim().toLowerCase().replace(/\s+/g,'')}
+function hs(t){var a=0xdeadbeef,b=0x41c6ce57;for(var i=0;i<t.length;i++){var c=t.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return String(4294967296*(2097151&b)+(a>>>0))}
+function qsel(){var s=el('select',null,'width:100%;padding:10px;font-size:15px;border-radius:10px;border:2px solid #b8bec3;font-family:inherit;margin-top:10px');return s}
+function panel(){
+ var ov=el('div',null,'position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:99998;display:flex;align-items:center;justify-content:center;padding:16px');
+ var bx=el('div',null,'background:#fff;color:#1f272c;border-radius:16px;padding:18px;width:100%;max-width:340px;max-height:85vh;overflow:auto;font-size:16px;line-height:1.7');
+ var view='main',after='';
+ bx.dir=E()?'ltr':'rtl';ov.appendChild(bx);ov.onclick=function(e){if(e.target==ov)ov.remove()};document.body.appendChild(ov);
+ function sub(){
+  var tt={verify:T('شناخت کی تصدیق','Verify identity'),setup:T('سیکیورٹی کوسچن سیٹ کریں','Set security questions'),newpin:T('نیا پن','New PIN')};
+  bx.appendChild(el('div',tt[view],'font-size:18px;font-weight:700;margin:2px 0 6px'));
+  function bk(){var c=el('button',T('واپس','Back'),BTN+'background:#e5e7e3;color:#1f272c');c.onclick=function(){view='main';h()};bx.appendChild(c)}
+  if(view=='verify'){
+   bx.appendChild(el('div',T('کوئی ایک سیکیورٹی کوسچن چنیں اور اس کا درست جواب دیں۔ جواب غلط ہوا تو اجازت نہیں ملے گی۔','Choose one security question and answer it correctly. A wrong answer will be refused.'),'font-size:14px;color:#555'));
+   var sv1=qsel();S.sq.forEach(function(x,k){var o=el('option',QS[x.i][E()?1:0]);o.value=k;sv1.appendChild(o)});bx.appendChild(sv1);
+   var an=el('input',null,INA+'margin-top:10px');an.type='text';an.autocomplete='off';an.placeholder=T('آپ کا جواب','Your answer');bx.appendChild(an);
+   var er=el('div',null,'color:#c0392b;min-height:24px;text-align:center;margin-top:6px');bx.appendChild(er);
+   var vb=el('button',T('تصدیق کریں','Verify'),BTN+'background:#2a63b8;color:#fff');
+   function chk(){
+    if(S.su>Date.now()){er.textContent=T('بہت زیادہ غلط کوششیں۔ ایک منٹ بعد دوبارہ کوشش کریں۔','Too many wrong attempts. Try again in a minute.');return}
+    var x=S.sq[+sv1.value];
+    if(x&&nz(an.value)&&hs(nz(an.value))===x.h){S.sf=0;sv();view=after;h()}
+    else{S.sf=(S.sf||0)+1;var lk=S.sf>=3;if(lk){S.sf=0;S.su=Date.now()+60000}sv();an.value='';er.textContent=lk?T('تین بار غلط جواب۔ ایک منٹ کے لیے بند۔','Three wrong answers. Locked for one minute.'):T('جواب غلط ہے۔ پن نہیں بدلا جا سکتا۔','Wrong answer. Not allowed.')}}
+   vb.onclick=chk;an.onkeydown=function(e){if(e.key=='Enter')chk()};bx.appendChild(vb);bk();return}
+  if(view=='setup'){
+   bx.appendChild(el('div',T('تین مختلف سوال چنیں اور ہر کا اپنا جواب لکھیں۔ پن بدلنے سے پہلے انہی میں سے ایک کا جواب دینا ہوگا۔','Pick three different questions and write your own answer for each. One of them must be answered before the PIN can be changed.'),'font-size:14px;color:#555'));
+   var ss=[],aa=[];
+   for(var k=0;k<3;k++){(function(k){
+    var q=qsel();QS.forEach(function(x,j){var o=el('option',x[E()?1:0]);o.value=j;q.appendChild(o)});
+    q.value=(S.sq&&S.sq[k])?S.sq[k].i:k;ss.push(q);bx.appendChild(q);
+    var a=el('input',null,INA+'margin-top:6px');a.type='text';a.autocomplete='off';a.placeholder=T('جواب '+(k+1),'Answer '+(k+1));aa.push(a);bx.appendChild(a)})(k)}
+   var er2=el('div',null,'color:#c0392b;min-height:24px;text-align:center;margin-top:6px');bx.appendChild(er2);
+   var sb=el('button',T('محفوظ کریں','Save'),BTN+'background:#2a63b8;color:#fff');
+   sb.onclick=function(){
+    var ids=ss.map(function(q){return +q.value});
+    if(new Set(ids).size<3){er2.textContent=T('تینوں سوال الگ الگ ہوں','The three questions must be different');return}
+    if(aa.some(function(a){return !nz(a.value)})){er2.textContent=T('تینوں جواب لکھیں','Write all three answers');return}
+    S.sq=ids.map(function(i,k){return {i:i,h:hs(nz(aa[k].value))}});S.sf=0;S.su=0;sv();toast(T('سیکیورٹی کوسچن محفوظ ہو گئے','Security questions saved'));view='main';h()};
+   bx.appendChild(sb);bk();return}
+  if(view=='newpin'){
+   bx.appendChild(el('div',T('تصدیق ہو گئی۔ نیا پن (4 سے 8 ہندسے) لکھیں۔','Verified. Enter the new PIN (4 to 8 digits).'),'color:#2f6b3f'));
+   var np=el('input',null,INP+'margin-top:8px');np.type='password';np.inputMode='numeric';np.maxLength=8;np.autocomplete='off';bx.appendChild(np);
+   var pb=el('button',T('پن بدلیں','Change PIN'),BTN+'background:#2a63b8;color:#fff');
+   pb.onclick=function(){if(/^\d{4,8}$/.test(np.value)){S.pin=np.value;sv();toast(T('پن بدل گیا','PIN changed'));view='main';h()}else toast(T('پن 4 سے 8 ہندسوں کا ہو','PIN must be 4 to 8 digits'))};
+   bx.appendChild(pb);bk();return}
+ }
+ function h(){
+  bx.innerHTML='';bx.appendChild(el('div',T('ایڈمن موڈ','Admin mode'),'font-size:20px;font-weight:700;margin-bottom:6px'));
+  if(!adm()){
+   bx.appendChild(el('div',T('پن درج کریں','Enter PIN')));
+   var i=el('input',null,INP);i.type='password';i.inputMode='numeric';i.maxLength=8;i.autocomplete='off';bx.appendChild(i);
+   var er=el('div',null,'color:#c0392b;min-height:24px;text-align:center');bx.appendChild(er);
+   var b=el('button',T('کھولیں','Unlock'),BTN+'background:#2a63b8;color:#fff');
+   function go(){if(i.value===S.pin){login();rb();h()}else{er.textContent=T('غلط پن','Wrong PIN');i.value=''}}
+   b.onclick=go;i.onkeydown=function(e){if(e.key=='Enter')go()};bx.appendChild(b);
+   var c=el('button',T('بند کریں','Close'),BTN+'background:#e5e7e3;color:#1f272c');c.onclick=function(){ov.remove()};bx.appendChild(c);
+   setTimeout(function(){try{i.focus()}catch(e){}},50);return}
+  if(view!='main'){sub();return}
+  bx.appendChild(el('div',T('ایڈمن موڈ آن ہے۔ پیلیٹ میں پرزوں کے ساتھ 🔓 / 🔒 دبا کر لاک بدلیں۔','Admin mode is ON. Tap 🔓 / 🔒 next to a part in the palette to lock or unlock it.'),'margin-bottom:10px;color:#2f6b3f'));
+  bx.appendChild(el('div',T('ایڈمن موڈ خود بند ہو','Admin mode turns off'),'font-weight:700'));
+  var sl=el('select',null,'width:100%;padding:10px;font-size:16px;border-radius:10px;border:2px solid #b8bec3;font-family:inherit');
+  [['close',T('ایپ بند ہونے پر','When the app is closed')],['5',T('5 منٹ بعد','After 5 minutes')],['10',T('10 منٹ بعد','After 10 minutes')],['30',T('30 منٹ بعد','After 30 minutes')],['never',T('کبھی نہیں (خود بند کریں)','Never (turn off myself)')]].forEach(function(o){var op=el('option',o[1]);op.value=o[0];if(S.auto==o[0])op.selected=true;sl.appendChild(op)});
+  sl.onchange=function(){S.auto=sl.value;if(S.auto=='close'){mem=true;S.until=0}else if(S.auto=='never'){mem=false;S.until=-1}else{mem=false;S.until=Date.now()+(+S.auto)*60000}sv();toast(T('محفوظ ہو گیا','Saved'))};bx.appendChild(sl);
+  var lb=el('label',null,'display:flex;gap:8px;align-items:center;margin-top:12px;cursor:pointer');var cb=el('input');cb.type='checkbox';cb.checked=!!S.xl;cb.style.cssText='width:20px;height:20px';cb.onchange=function(){S.xl=cb.checked?1:0;sv()};lb.appendChild(cb);lb.appendChild(el('span',T('سرکٹ ایکسپورٹ (PDF / تصویر) لاک','Lock circuit export (PDF / image)')));bx.appendChild(lb);
+  var pb=el('button',T('پن بدلیں','Change PIN'),BTN+'background:#e5e7e3;color:#1f272c;margin-top:12px');pb.onclick=function(){if(!S.sq||S.sq.length<3){toast(T('پہلے سیکیورٹی کوسچن سیٹ کریں','Set security questions first'));view='setup'}else{after='newpin';view='verify'}h()};bx.appendChild(pb);
+  var qb=el('button',(S.sq&&S.sq.length>=3)?T('سیکیورٹی کوسچن تبدیل کریں','Change security questions'):T('سیکیورٹی کوسچن سیٹ کریں','Set security questions'),BTN+'background:#e5e7e3;color:#1f272c');qb.onclick=function(){if(!S.sq||S.sq.length<3){view='setup'}else{after='setup';view='verify'}h()};bx.appendChild(qb);
+  var ua=el('button',T('سب پرزے ان لاک کریں','Unlock all parts'),BTN+'background:#e5e7e3;color:#1f272c');ua.onclick=function(){S.lk=[];sv();rb();toast(T('سب ان لاک ہو گئے','All unlocked'))};bx.appendChild(ua);
+  var of=el('button',T('ایڈمن موڈ بند کریں','Turn off admin mode'),BTN+'background:#c0392b;color:#fff');of.onclick=function(){logout();rb();ov.remove()};bx.appendChild(of);
+  var c2=el('button',T('بند کریں','Close'),BTN+'background:#e5e7e3;color:#1f272c');c2.onclick=function(){ov.remove()};bx.appendChild(c2)}
+ h()}
+window.LKH={
+ blocked:function(t,o){return !adm()&&isL(t,o)},
+ msg:function(){toast(T('یہ پرزہ لاک ہے','This part is locked'))},
+ dec:function(b,t,o){var l=isL(t,o);
+  if(adm()){var s2=el('span',l?'🔒':'🔓',null);s2.className='lk';b.style.paddingInline='30px';s2.onclick=function(ev){ev.stopPropagation();var k=key(t,o),i=S.lk.indexOf(k);if(i>-1)S.lk.splice(i,1);else S.lk.push(k);sv();rb()};b.appendChild(s2);if(l){b.style.outline='2px dashed #d97706';b.style.outlineOffset='-2px'}}
+  else if(l){b.style.opacity='.45';b.textContent='🔒 '+b.textContent}},
+ bind:function(b){if(!b)return;if(adm()){var lk=el('span','🔓',null);lk.className='lk';b.appendChild(lk)};var t=0;
+  b.style.cssText+=';user-select:none;-webkit-user-select:none;-webkit-touch-callout:none';b.oncontextmenu=function(e){e.preventDefault()};
+  b.addEventListener('pointerdown',function(){t=setTimeout(function(){t=0;panel()},800)});
+  ['pointerup','pointerleave','pointercancel'].forEach(function(ev){b.addEventListener(ev,function(){if(t){clearTimeout(t);t=0}})});
+  b.addEventListener('click',function(){var n=Date.now();taps.push(n);taps=taps.filter(function(x){return n-x<3000});if(taps.length>=5){taps=[];panel()}})},
+ open:panel,
+ xblock:function(){if(!adm()&&S.xl){toast(T('ایکسپورٹ لاک ہے','Export is locked'));return true}return false}};
+var oe=window.exportPDF;if(typeof oe=='function')window.exportPDF=function(){if(LKH.xblock())return;return oe.apply(this,arguments)};
+setInterval(function(){var a=adm();if(a!==last){last=a;rb()}},10000);last=adm();
+})();
+
 function buildPal(){const e=LG=='en',tb=$('#tabs'),p=$('#pal'),Q=(($('#psr')||{}).value||'').trim().toLowerCase();if($('#psr'))$('#psr').placeholder=tx('srp');tb.innerHTML='';TABS.forEach(([k,u,en])=>{const b=document.createElement('button');b.className='tab'+(k==TB?' on':'');b.textContent=e?en:u;b.onclick=()=>{TB=k;if($('#psr'))$('#psr').value='';buildPal()};tb.append(b)});
-p.innerHTML='<b style="flex:none">'+tx('add')+'</b>';
-PAL.map((a,pi)=>({t:a[0],l:a[1],o:a[2],pi})).filter(a=>Q?((a.l+' '+PEN[a.pi]+' '+a.t).replace(/1φ/g,'1φ سنگل فیز single phase 1-phase').replace(/3φ/g,'3φ تھری فیز three phase 3-phase')+((a.t=='mcb'||a.t=='elcb')?' 1P 2P 3P pole پول سنگل ٹو تھری single two three':'')+(a.o&&a.o.ps?' dc power supply adjustable variable psu bench پاور سپلائی ڈی سی ایڈجسٹ':'')+(a.t=='motor1'?' capacitor کپیسٹر star delta سٹار ڈیلٹا':'')+((a.o&&a.o.gen||['trf','supply','motor1','kwh1'].includes(a.t))?' 1φ 3φ سنگل فیز تھری فیز single phase three phase':'')).toLowerCase().includes(Q):(TB=='r'?!!(a.o&&a.o.sk):(!(a.o&&a.o.sk)&&CAT[a.t]==TB))).sort((x,y)=>ORD.indexOf(x.t)-ORD.indexOf(y.t)).forEach(({t:t0,l,o,pi})=>{const b=document.createElement('button');b.textContent=e?PEN[pi]:l;
-b.onclick=()=>{const pre=cur0(),[cx,cy]=ctr(),k=(comps.length%5)*20,i=add(t0,Math.round((cx-40+k)/10)*10,Math.round((cy-30+k)/10)*10,o);sel={id:i};commit(pre);render()};p.append(b)});if(Q&&p.children.length<2){const z=document.createElement('span');z.className='hint';z.textContent=tx('srn');p.append(z)}}
+p.innerHTML='<b style="flex:none">'+tx('add')+'</b>';if(window.LKH)LKH.bind(p.firstChild);
+PAL.map((a,pi)=>({t:a[0],l:a[1],o:a[2],pi})).filter(a=>Q?((a.l+' '+PEN[a.pi]+' '+a.t).replace(/1φ/g,'1φ سنگل فیز single phase 1-phase').replace(/3φ/g,'3φ تھری فیز three phase 3-phase')+((a.t=='mcb'||a.t=='elcb')?' 1P 2P 3P pole پول سنگل ٹو تھری single two three':'')+(a.o&&a.o.ps?' dc power supply adjustable variable psu bench پاور سپلائی ڈی سی ایڈجسٹ':'')+(a.t=='motor1'?' capacitor کپیسٹر star delta سٹار ڈیلٹا':'')+((a.o&&a.o.gen||['trf','supply','motor1','kwh1'].includes(a.t))?' 1φ 3φ سنگل فیز تھری فیز single phase three phase':'')).toLowerCase().includes(Q):(TB=='r'?!!(a.o&&a.o.sk):(!(a.o&&a.o.sk)&&CAT[a.t]==TB))).sort((x,y)=>ORD.indexOf(x.t)-ORD.indexOf(y.t)).forEach(({t:t0,l,o,pi})=>{const b=document.createElement('button');b.textContent=e?PEN[pi]:l;if(window.LKH)LKH.dec(b,t0,o);
+b.onclick=()=>{if(window.LKH&&LKH.blocked(t0,o)){LKH.msg();return}const pre=cur0(),[cx,cy]=ctr(),k=(comps.length%5)*20,i=add(t0,Math.round((cx-40+k)/10)*10,Math.round((cy-30+k)/10)*10,o);sel={id:i};commit(pre);render()};p.append(b)});if(Q&&p.children.length<2){const z=document.createElement('span');z.className='hint';z.textContent=tx('srn');p.append(z)}}
 $('#psr').addEventListener('input',buildPal);
 function add(t,x,y,o={}){const c={id:'c'+uid++,type:t,x,y,s:['mcb','mcb2','mcb3','mccb','rccb3','fuse','elcb','pbn','sock','estop','flt'].includes(t)?1:0,...o};comps.push(c);return c.id}
 function load(k){for(const q in EN)delete EN[q];comps=k?[{id:'sup',type:'supply',x:30,y:220}]:[];wires=[];uid=1;sel=pend=null;const W=(a,b)=>wires.push({id:'w'+uid++,a,b});
