@@ -256,11 +256,14 @@ body:not([data-tab=circuit]) :is(#pt,#hp){display:none!important}body:not([data-
 #tbk{font:15px system-ui,sans-serif;padding:3px 9px;border-radius:8px;border:1.5px solid #fff;background:#fff;color:#1f272c;cursor:pointer}
 body.tb-h #tbk{display:inline-block}
 /* vertical column on the left */
-body.tb-v{grid-template-columns:300px minmax(0,1fr) 172px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"h h h" "p w a"}
-body.tb-v:not(.pl){grid-template-columns:minmax(0,1fr) 172px;grid-template-areas:"h h" "w a"}
+body.tb-v{grid-template-columns:minmax(0,1fr) 172px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"h h" "w a"}
+/* without the palette open the base rule would stretch the toolbar across the top; these win over it */
+body.tb-v:not(.pl):not(.pv){grid-template-columns:minmax(0,1fr) 172px;grid-template-areas:"h h" "w a"}
+body.tb-c:not(.pl):not(.pv){grid-template-columns:minmax(0,1fr) 54px;grid-template-areas:"h h" "w a"}
+/* palette and part properties float over the canvas in these modes, so the canvas layout never changes */
+body.tb-v #pw,body.tb-c #pw{grid-area:auto;position:fixed;top:var(--hh,58px);bottom:0;right:0;width:320px;max-width:92vw;z-index:30;box-shadow:-4px 0 14px rgba(0,0,0,.25);border-inline-end:0;border-left:1px solid #b9bdb0}
 /* collapsed strip: first letters only, full list on hover */
-body.tb-c{grid-template-columns:300px minmax(0,1fr) 54px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"h h h" "p w a"}
-body.tb-c:not(.pl){grid-template-columns:minmax(0,1fr) 54px;grid-template-areas:"h h" "w a"}
+body.tb-c{grid-template-columns:minmax(0,1fr) 54px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"h h" "w a"}
 body.tb-v #ab,body.tb-c #ab{grid-area:a;flex-direction:column;flex-wrap:nowrap;align-items:stretch;align-self:stretch;height:auto;min-height:0;overflow-x:hidden;overflow-y:auto;padding:8px 6px;gap:6px;border-bottom:0;border-right:1px solid #b9bdb0;background:#e9e6da;justify-self:stretch}
 body.tb-v #ab button{width:100%;white-space:normal;text-align:start;justify-content:flex-start}
 body.tb-v #ab select,body.tb-v #ab input{width:100%;max-width:100%}
@@ -3613,7 +3616,7 @@ const SFP=[
 ];
 function sfR(){const t=XT.find(x=>x[0]=='safety');let n=0;em.innerHTML='<h2>'+lb(t[1])+'</h2><div id="tlw"><div class="tln">'+lb(TLN)+'</div><h3 class="tlg">'+lb('وائرنگ کے دوران حفاظتی ہدایات|Safety guidelines for wiring')+'</h3>'+SFG.map(g=>'<h3 class="tlg sfs">'+lb(g[0])+'</h3>'+g[1].map(x=>'<div class="sfi"><b>'+(++n)+'</b><span>'+lb(x)+'</span></div>').join('')).join('')+'<h3 class="tlg">'+lb('حفاظتی سامان کی فہرست|Safety equipment list')+'</h3>'+SFP.map(g=>'<h3 class="tlg sfs">'+lb(g[0])+'</h3>'+g[1].map(it=>'<div class="tli"><div class="tlp">'+tlS(it[0])+'</div><div class="tlt"><h4>'+lb(it[1])+'</h4><p>'+lb(it[2])+'</p></div></div>').join('')).join('')+'</div>';em.scrollTop=0}
 let tbi=0;
-function tbShow(i){tbi=i;const c=$('#emc'),bd=$('#emb');if(!c||!bd)return;c.querySelectorAll('button').forEach((x,k)=>x.classList.toggle('on',k==i));bd.innerHTML=CH[i][1]();em.scrollTop=0}
+function tbShow(i){tbi=i;const c=$('#emc'),bd=$('#emb');if(!c||!bd)return;c.querySelectorAll('button').forEach((x,k)=>x.classList.toggle('on',k==i));window.__tbi=i;window.__CH=CH;bd.innerHTML=(window.TDL?TDL.bar():'')+CH[i][1]();if(window.TDL)TDL.after(bd);em.scrollTop=0}
 var CVT=[
 {n:'Current',i:'A',a:3,b:2,u:[['GA',1e9],['MA',1e6],['kA',1e3],['A',1],['mA',1e-3],['µA',1e-6],['nA',1e-9],['pA',1e-12]]},
 {n:'Voltage',i:'V',a:3,b:2,u:[['GV',1e9],['MV',1e6],['kV',1e3],['V',1],['mV',1e-3],['µV',1e-6],['nV',1e-9],['pV',1e-12]]},
@@ -3682,6 +3685,96 @@ showHome();
  K.addEventListener('click',function(){document.body.classList.toggle('tb-open')});
  var saved='h';try{saved=localStorage.getItem('tbmode')||'h'}catch(e){}
  apply(MAP[saved]!==undefined?saved:'h');
+})();
+</script>
+<script id="tdl-js">
+window.TDL=(function(){
+ function esc(v){v=String(v).replace(/\s+/g,' ').trim();return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+ function safe(n){return String(n).replace(/[\\\/:*?"<>|]+/g,'_').trim()||'table'}
+ function rowsOf(root){
+   var out=[];
+   Array.prototype.forEach.call(root.children,function(el){
+     if(el.classList&&el.classList.contains('tdlbar'))return;
+     var tbls=el.tagName==='TABLE'?[el]:Array.prototype.slice.call(el.querySelectorAll('table'));
+     if(tbls.length){
+       tbls.forEach(function(t){
+         Array.prototype.forEach.call(t.rows,function(r){
+           out.push(Array.prototype.map.call(r.cells,function(c){return esc(c.textContent)}).join(','));
+         });
+         out.push('');
+       });
+     }else{
+       var tx=(el.textContent||'').trim();
+       if(tx)out.push(esc(tx));
+     }
+   });
+   return out;
+ }
+ function save(name,lines){
+   var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+   document.body.appendChild(a);a.click();
+   setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+ }
+ function bar(){
+   var st='display:inline-block;padding:8px 12px;border-radius:8px;border:1.5px solid #1f272c;background:#fff;color:#1f272c;font:700 13px system-ui,sans-serif;cursor:pointer;position:relative';
+   return '<div class="tdlbar" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px">'+
+     '<button id="tdl1" type="button" class="tdlb" style="'+st+'">⬇ This table (CSV)</button>'+
+     '<button id="tdla" type="button" class="tdlb" style="'+st+'">⬇ All tables (CSV)</button>'+
+     '<button id="tdp1" type="button" class="tdlb" style="'+st+'">📄 This table (PDF)</button>'+
+     '<button id="tdpa" type="button" class="tdlb" style="'+st+'">📄 All tables (PDF)</button></div>';
+ }
+ function after(bd){
+   var i=window.__tbi||0,CH=window.__CH||[];
+   var name=CH[i]?CH[i][0]:'table';
+   if(window.LKH&&LKH.kd){
+     LKH.kd(bd,'#tdl1',function(){return 'tdl:'+name});
+     LKH.kd(bd,'#tdla',function(){return 'tdlall'});
+     LKH.kd(bd,'#tdp1',function(){return 'tdlpdf:'+name});
+     LKH.kd(bd,'#tdpa',function(){return 'tdlpdfall'});
+   }
+ }
+ function pdfWin(title,bodyHtml){
+   var w=window.open('','_blank');
+   if(!w){alert('براؤزر میں پاپ اپ بلاک ہے۔ اسے اجازت دیں۔');return}
+   var css='@page{size:A4;margin:12mm}body{font-family:Arial,Helvetica,sans-serif;color:#1f272c;direction:ltr;text-align:left;margin:0}'+
+     'h1{font-size:18px;margin:0 0 10px;text-align:left}h2,h3{text-align:left}h3{font-size:14px;margin:14px 0 6px;color:#8a4a08}p{font-size:11px;line-height:1.5;margin:4px 0;text-align:left}'+
+     'table{border-collapse:collapse;width:100%;font-size:10px;margin:6px 0 12px;table-layout:auto}th,td{border:1px solid #888;padding:3px 5px;text-align:center}th{background:#2b3338;color:#fff}'+
+     '.tw{overflow:visible;width:100%}.tdlbar{display:none}.sec{page-break-inside:avoid}.katex,.formula{font-size:12px}';
+   w.document.open();
+   w.document.write('<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><title>'+title.replace(/</g,'')+'</title><style>'+css+'</style></head><body><h1>'+title.replace(/</g,'')+'</h1>'+bodyHtml+'</body></html>');
+   w.document.close();
+   w.onload=function(){setTimeout(function(){w.focus();w.print()},250)};
+   setTimeout(function(){try{w.focus();w.print()}catch(e){}},900);
+ }
+ function htmlOf(bd){var c=bd.cloneNode(true);var b=c.querySelector('.tdlbar');if(b)b.remove();return c.innerHTML}
+ document.addEventListener('click',function(e){
+   var pone=e.target.closest&&e.target.closest('#tdp1'),pall=e.target.closest&&e.target.closest('#tdpa');
+   if(pone||pall){
+     if(e.target.closest('.lkb'))return;
+     var i2=window.__tbi||0,CH2=window.__CH||[];
+     if(pone){var bd2=document.getElementById('emb');if(bd2&&CH2[i2])pdfWin(CH2[i2][0],htmlOf(bd2));}
+     else{var parts=CH2.map(function(c){var d=document.createElement('div');d.innerHTML=c[1]();return '<div class="sec"><h3>'+c[0]+'</h3>'+htmlOf(d)+'</div>'}).join('');pdfWin('Cable tables',parts);}
+     return;
+   }
+   var one=e.target.closest&&e.target.closest('#tdl1'),allb=e.target.closest&&e.target.closest('#tdla');
+   if(!one&&!allb)return;
+   if(e.target.closest('.lkb'))return;
+   var i=window.__tbi||0,CH=window.__CH||[];
+   if(one){
+     var bd=document.getElementById('emb');
+     if(!bd||!CH[i])return;
+     save(safe(CH[i][0])+'.csv',[esc(CH[i][0]),''].concat(rowsOf(bd)));
+   }else if(allb){
+     var lines=[];
+     CH.forEach(function(c){
+       var d=document.createElement('div');d.innerHTML=c[1]();
+       lines=lines.concat([esc(c[0]),''],rowsOf(d),['','']);
+     });
+     save('cable-tables-all.csv',lines);
+   }
+ });
+ return {bar:bar,after:after};
 })();
 </script>
 </body></html>
