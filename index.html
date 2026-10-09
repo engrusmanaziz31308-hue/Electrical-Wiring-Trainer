@@ -61,7 +61,7 @@ body>header{grid-area:h}#ab{grid-area:a}.wrap{grid-area:w}
 #pw{grid-area:p;position:static;transform:none;visibility:visible;max-height:none;min-height:0;border:0;border-inline-end:1px solid #b9bdb0;border-radius:0;padding-bottom:0}
 #pt{display:none}
 }
-@media(min-width:1000px) and (min-height:560px){
+@media(min-width:1000px){
 #pt,#hp{display:inline-block}
 body{display:grid;grid-template-columns:300px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"h h" "a a" "p w";height:100vh;height:100dvh;overflow:hidden}
 body:not(.pl):not(.pv){grid-template-areas:"h h" "a a" "w w"}body:not(.pl):not(.pv) #pw{display:none}
@@ -251,7 +251,7 @@ body:not([data-tab=circuit]) :is(#pt,#hp){display:none!important}body:not([data-
 <style id="ab-wrap">@media(min-width:1000px){#ab.bar{flex-wrap:wrap;overflow-x:visible;row-gap:6px}}</style>
 <style id="tb-modes">
 #tbm,#tbk{display:none}
-@media(min-width:1000px) and (min-height:560px){
+@media(min-width:1000px){
 #tbm{display:inline-block;font:13px system-ui,sans-serif;padding:4px 6px;border-radius:8px;border:1.5px solid #fff;background:#fff;color:#1f272c;cursor:pointer;max-width:240px}
 #tbk{font:15px system-ui,sans-serif;padding:3px 9px;border-radius:8px;border:1.5px solid #fff;background:#fff;color:#1f272c;cursor:pointer}
 body.tb-h #tbk{display:inline-block}
