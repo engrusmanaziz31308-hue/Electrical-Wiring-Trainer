@@ -249,8 +249,39 @@ body:not([data-tab=circuit]) :is(#pt,#hp){display:none!important}body:not([data-
 #emb .cvx:nth-child(even){background:#d9dbe6}#emb .cvi b{font-size:15px;overflow:hidden;letter-spacing:-.2px}#emb .cvx{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);font-size:18px}#emb .cvx span{white-space:nowrap;overflow-wrap:normal;overflow-x:auto}#emb .cvx sup,#emb .cvf output sup{font-size:.62em;line-height:0}#emb .cvf output{font-size:clamp(17px,5.6vw,24px);white-space:nowrap;overflow-wrap:normal;overflow-x:auto}
 </style><style>#pal button{display:flex;align-items:center;justify-content:center;gap:4px;box-sizing:border-box;margin:0;text-align:center;overflow-wrap:anywhere}#pal button{position:relative}#pal button .lk{position:absolute;inset-inline-end:4px;top:50%;transform:translateY(-50%);margin:0;padding:4px;font-size:15px;line-height:1;min-width:26px;text-align:center}#pal>b .lk{position:static;transform:none}#pal>b{display:flex;align-items:center;gap:4px;margin:0}</style><style>#cl .lr .inc{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;gap:8px;font-weight:800;font-size:14px}#cl .lr .inc input,#cl .lr .mo input{width:20px;height:20px;min-height:0;padding:0;flex:none;transform:none}#cl .rw.w b{flex:1 1 100%;direction:auto;text-align:start}#cl .lr label{min-width:0}#cl .lr select{padding-inline:6px}#cl .lr.off{opacity:.55;background:#eceae0}#cl .hp b{display:block;margin-top:10px}#cl .hp b:first-child{margin-top:0;font-size:15px}</style><script>(function(){var E=[];window.addEventListener('error',function(e){E.push((e.message||'error')+' ['+(e.lineno||'')+':'+(e.colno||'')+']')});window.addEventListener('unhandledrejection',function(e){E.push('promise: '+(e.reason&&e.reason.message||e.reason))});window.addEventListener('load',function(){setTimeout(function(){try{var t=(document.body&&document.body.innerText||'').replace(/\s/g,'');if(t.length>20)return;var d=document.createElement('pre');d.style.cssText='position:fixed;z-index:99999;left:0;right:0;top:0;margin:0;padding:10px;background:#fee;color:#900;font:13px monospace;white-space:pre-wrap;direction:ltr;text-align:left';d.textContent='Page did not load. Error:\n'+(E.join('\n')||'(none captured)')+'\nBrowser: '+navigator.userAgent;document.body.appendChild(d)}catch(_){}},1500)})})();</script>
 <style id="ab-wrap">@media(min-width:1000px){#ab.bar{flex-wrap:wrap;overflow-x:visible;row-gap:6px}}</style>
+<style id="tb-modes">
+#tbm,#tbk{display:none}
+@media(min-width:1000px) and (min-height:560px){
+#tbm{display:inline-block;font:13px system-ui,sans-serif;padding:4px 6px;border-radius:8px;border:1.5px solid #fff;background:#fff;color:#1f272c;cursor:pointer;max-width:240px}
+#tbk{font:15px system-ui,sans-serif;padding:3px 9px;border-radius:8px;border:1.5px solid #fff;background:#fff;color:#1f272c;cursor:pointer}
+body.tb-h #tbk{display:inline-block}
+/* vertical column on the left */
+body.tb-v{grid-template-columns:300px minmax(0,1fr) 172px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"h h h" "p w a"}
+body.tb-v:not(.pl){grid-template-columns:minmax(0,1fr) 172px;grid-template-areas:"h h" "w a"}
+/* collapsed strip: first letters only, full list on hover */
+body.tb-c{grid-template-columns:300px minmax(0,1fr) 54px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"h h h" "p w a"}
+body.tb-c:not(.pl){grid-template-columns:minmax(0,1fr) 54px;grid-template-areas:"h h" "w a"}
+body.tb-v #ab,body.tb-c #ab{grid-area:a;flex-direction:column;flex-wrap:nowrap;align-items:stretch;align-self:stretch;height:auto;min-height:0;overflow-x:hidden;overflow-y:auto;padding:8px 6px;gap:6px;border-bottom:0;border-right:1px solid #b9bdb0;background:#e9e6da;justify-self:stretch}
+body.tb-v #ab button{width:100%;white-space:normal;text-align:start;justify-content:flex-start}
+body.tb-v #ab select,body.tb-v #ab input{width:100%;max-width:100%}
+body.tb-v #ab .sep{width:auto;height:1px;align-self:stretch;margin:4px 0}
+body.tb-c #ab{width:54px;padding:6px 4px}
+body.tb-c #ab button{font-size:0;width:100%;min-height:34px;padding:6px 0;justify-content:center;text-align:center}
+body.tb-c #ab button::first-letter{font-size:15px}
+body.tb-c #ab select,body.tb-c #ab input,body.tb-c #ab .sep{display:none}
+body.tb-c #ab.tb-exp{box-shadow:0 0 14px rgba(0,0,0,.3);border-right:2px solid #1f272c}
+body.tb-c #ab.tb-exp button{font-size:13px;padding:6px 10px;text-align:start;justify-content:flex-start;white-space:normal;line-height:1.35}
+body.tb-c #ab:hover button{font-size:13px}
+body.tb-c #ab.tb-exp button::first-letter{font-size:inherit}
+body.tb-c #ab.tb-exp select,body.tb-c #ab.tb-exp input{display:block;width:100%}
+body.tb-c #ab.tb-exp .sep{display:block;height:1px;width:auto}
+/* hidden bar, opened on demand as an overlay */
+body.tb-h #ab{display:none}
+body.tb-h.tb-open #ab{display:flex;position:fixed;left:0;right:0;top:var(--hh,58px);z-index:45;flex-wrap:wrap;overflow:visible;box-shadow:0 6px 14px rgba(0,0,0,.25)}
+}
+</style>
 </head><body>
-<header><div class="hr"><h1 data-k="title">سرکٹ ٹرینر</h1><div style="display:flex;gap:8px;align-items:center"><button id="cb" style="background:#e8860c;color:#1f272c;font-weight:800">حساب کتاب</button><button id="pt" data-k="pt">پرزے</button><button id="hp" data-k="hp">مدد</button><button id="inst" data-k="inst" hidden>ایپ انسٹال کریں</button><button id="hb" hidden aria-label="home">🏠</button><button id="qb" hidden aria-label="back">←</button><button id="lg" data-k="btn">English</button></div></div><nav id="mt" aria-label="main"></nav></header>
+<header><div class="hr"><h1 data-k="title">سرکٹ ٹرینر</h1><div style="display:flex;gap:8px;align-items:center"><select id="tbm" title="Toolbar layout" aria-label="Toolbar layout"><option value="h">ٹول بار: افقی / Horizontal</option><option value="v">ٹول بار: عمودی / Vertical</option><option value="c">ٹول بار: سمٹنے والا / Collapsible</option><option value="x">ٹول بار: چھپا ہوا / Hidden</option></select><button id="tbk" title="Show or hide toolbar">🧰</button><button id="cb" style="background:#e8860c;color:#1f272c;font-weight:800">حساب کتاب</button><button id="pt" data-k="pt">پرزے</button><button id="hp" data-k="hp">مدد</button><button id="inst" data-k="inst" hidden>ایپ انسٹال کریں</button><button id="hb" hidden aria-label="home">🏠</button><button id="qb" hidden aria-label="back">←</button><button id="lg" data-k="btn">English</button></div></div><nav id="mt" aria-label="main"></nav></header>
 <div id="pw"><div class="bar" id="tabs"></div><div class="bar" id="srb"><input id="psr" type="search" autocomplete="off" style="flex:1;min-width:150px"></div><div class="bar" id="pal"></div></div>
 <div class="bar" id="ab"><button class="act" id="del" data-k="del">حذف کریں</button><button class="act" id="flip" data-k="flip">پلٹائیں</button><button class="act" id="rot" data-k="rot">گھمائیں</button><button class="act" id="ga" data-k="gd">الائنمنٹ گائیڈ</button><button class="act" id="clr" data-k="clr">سب صاف</button><button class="act" id="pdf" data-k="pdf">پی ڈی ایف ڈاؤن لوڈ</button><span class="sep"></span><button class="act" id="png" data-k="png">تصویر</button><button class="act" id="lnk" data-k="lnk">لنک شیئر</button><button class="act" id="bu" data-k="undo">واپس</button><button class="act" id="br" data-k="redo">دوبارہ</button><button class="act" id="bd" data-k="dup">نقل</button><button class="act" id="msb" data-k="msb">منتخب باکس</button><button class="act" id="fb" data-k="fb">فالٹ ٹیسٹ</button><span class="sep"></span><button class="act" id="bm" data-k="svm" style="background:var(--panel);color:#fff;font-weight:800">میرے سرکٹ</button><button class="act" id="bs" data-k="sf">فائل میں محفوظ</button><button class="act" id="bo" data-k="of">فائل سے کھولیں</button><input type="file" id="fi" accept=".json,application/json" hidden><span class="sep"></span>
 <select id="pre" aria-label="مثال سرکٹ"><option value="" data-k="p0">مثال سرکٹ…</option><option value="1" data-k="p1">بلب — ون وے سوئچ</option><option value="2" data-k="p2">سیڑھی کا بلب — دو ٹو وے سوئچ</option><option value="3" data-k="p3">بلب اور انڈیکیٹر متوازی</option><option value="4" data-k="p4">ڈی سی — ایمپیئر اور وولٹ میٹر</option><option value="5" data-k="p5">تین جگہ سے کنٹرول</option><option value="7" data-k="p7">ساکٹ، ڈمر اور سیلنگ فین</option><option value="6" data-k="p6">RCCB اور انسولیشن فالٹ</option><option value="8" data-k="p8">انرجی میٹر — سنگل فیز (kWh)</option><option value="9" data-k="p9">انرجی میٹر — تھری فیز، غیر متوازن لوڈ</option><option value="16" data-k="p16">ٹرانسفارمر + ریکٹیفائر (12V DC بلب)</option><option value="17" data-k="p17">مشین کی ارتھنگ + RCCB تھری پول</option><option value="15" data-k="p15">تھری فیز موٹر — فیز فیلئر ریلے کے ساتھ</option><option value="10" data-k="p10">تھری فیز موٹر — DOL سٹارٹر (اسٹارٹ/اسٹاپ)</option><option value="11" data-k="p11">تھری فیز موٹر — سٹار ڈیلٹا سٹارٹر (ٹائمر)</option><option value="13" data-k="p13">سنگل فیز موٹر — کپیسٹر سٹارٹ (ایمرجنسی اسٹاپ)</option><option value="14" data-k="p14">سنگل فیز موٹر — کپیسٹر رن (سلیکٹر سوئچ)</option><option value="12" data-k="p12">تھری فیز موٹر — فارورڈ / ریورس</option><option value="18" data-k="p18">ٹیوب لائٹ — سوئچ سے</option><option value="19" data-k="p19">پانی کی ٹینکی — فلوٹ سوئچ سے موٹر</option><option value="20" data-k="p20">چینج اوور سوئچ — مین / جنریٹر</option><option value="21" data-k="p21">تھری فیز ٹرانسفارمر — ڈیلٹا / سٹار (3 بلب)</option><option value="22" data-k="p22">ملٹی میٹر — بلب کی ریزسٹنس (Ω)</option><option value="23" data-k="p23">ملٹی میٹر — وولٹیج اور کرنٹ</option></select></div>
@@ -3620,6 +3651,37 @@ addEventListener('popstate',e=>{const s=e.state;if(!s||s.t=='home')showHome();el
 $('#lg').addEventListener('click',()=>setTimeout(()=>{if(!hm.hidden)renderHome();if(!em.hidden){const t=XT.find(x=>x[0]==em.dataset.x);if(t)emR(t[0])}},0));
 try{history.replaceState({t:'home'},'')}catch(_){}
 showHome();
+})();
+</script>
+<script id="tb-modes-js">
+(function(){
+ var M=document.getElementById('tbm'),K=document.getElementById('tbk');
+ if(!M||!K)return;
+ var MAP={h:'',v:'tb-v',c:'tb-c',x:'tb-h'};
+ function apply(m){
+   var b=document.body;
+   ['tb-v','tb-c','tb-h','tb-open'].forEach(function(c){b.classList.remove(c)});
+   if(MAP[m])b.classList.add(MAP[m]);
+   M.value=m;
+   try{localStorage.setItem('tbmode',m)}catch(e){}
+   setTimeout(function(){window.dispatchEvent(new Event('resize'));var z=document.getElementById('zf');if(z)z.click()},60);
+ }
+ M.addEventListener('change',function(){apply(M.value)});
+ var A=document.getElementById('ab');
+ if(A){
+  A.addEventListener('mouseenter',function(){
+    if(!document.body.classList.contains('tb-c'))return;
+    var r=A.getBoundingClientRect(),w=Math.min(220,window.innerWidth-8);
+    var x=Math.max(0,Math.min(r.left,window.innerWidth-w));
+    A.style.position='fixed';A.style.left=x+'px';A.style.top=r.top+'px';
+    A.style.height=Math.max(r.height,window.innerHeight-r.top)+'px';
+    A.style.width=w+'px';A.style.zIndex='45';A.classList.add('tb-exp');
+  });
+  A.addEventListener('mouseleave',function(){A.removeAttribute('style');A.classList.remove('tb-exp')});
+ }
+ K.addEventListener('click',function(){document.body.classList.toggle('tb-open')});
+ var saved='h';try{saved=localStorage.getItem('tbmode')||'h'}catch(e){}
+ apply(MAP[saved]!==undefined?saved:'h');
 })();
 </script>
 </body></html>
